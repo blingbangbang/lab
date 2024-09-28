@@ -3,3 +3,15 @@ task = nidaqmx.Task() task.ai_channels.add_ai_thrmcpl_chan("TC01/ai0") task.star
 value = task.read()
 print(round(value,1))
 task.stop() task.close()
+
+import nidaqmx
+import time
+# Initialize DAQ Device
+task = nidaqmx.Task() task.ai_channels.add_ai_thrmcpl_chan("TC01/ai0") task.start()
+Ts = 5 # Sampling Time
+N = 60
+for k in range(N):
+value = task.read()
+print("T =", round(value,1), "[degC]") time.sleep(Ts)
+# Terminate DAQ Device task.stop() task.close()
+ 
